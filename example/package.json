@@ -1,0 +1,26 @@
+{
+  "name": "parcel-reactjs",
+  "version": "1.0.0",
+  "main": "example.js",
+  "scripts": {
+    "start": "parcel ./src/index.html"
+  },
+  "author": "David Bismut",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "parcel-bundler": "^1.12.3"
+  },
+  "alias": {
+    "react-soft-slider": "../index",
+    "react": "../node_modules/react",
+    "react-dom": "../node_modules/react-dom",
+    "react-spring": "../node_modules/react-spring"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.0.0",
+    "react-dat-gui": "^3.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
