@@ -1,6 +1,6 @@
 # react-soft-slider
 
-![npm (tag)](https://img.shields.io/npm/v/react-soft-slider/beta.svg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-soft-slider.svg) ![GitHub](https://img.shields.io/github/license/dbismut/react-soft-slider.svg) [![BuildStatus](https://travis-ci.org/dbismut/react-soft-slider.svg)](https://travis-ci.org/dbismut/react-use-gesture)
+![npm (tag)](https://img.shields.io/npm/v/react-soft-slider.svg) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-soft-slider.svg) ![GitHub](https://img.shields.io/github/license/dbismut/react-soft-slider.svg) [![BuildStatus](https://travis-ci.org/dbismut/react-soft-slider.svg)](https://travis-ci.org/dbismut/react-use-gesture)
 
 <p align="middle">
   <a href="https://nwj6597vq4.codesandbox.io"><img src="https://i.imgur.com/Lh8l5tB.gif" width="655"/></a>
