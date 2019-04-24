@@ -21,7 +21,7 @@ function App() {
 
   return (
     <>
-      {/* <Dat data={state} onUpdate={setState} /> */}
+      <Dat data={state} onUpdate={setState} />
       <Slider
         enabled={enabled}
         index={index}

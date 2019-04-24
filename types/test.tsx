@@ -1,12 +1,12 @@
 import * as React from 'react'
-import { Carousel } from 'react-soft-slider'
+import { Slider } from 'react-soft-slider'
 
 function App() {
   const [index, setIndex] = React.useState(0)
 
   return (
     <>
-      <Carousel
+      <Slider
         index={index}
         onIndexChange={setIndex}
         className="wrapper"
@@ -23,10 +23,10 @@ function App() {
         <div />
         <div />
         <div />
-      </Carousel>
-      <Carousel index={index} onIndexChange={setIndex} slideStyle={{ minWidth: '100%' }}>
+      </Slider>
+      <Slider index={index} onIndexChange={setIndex} slideStyle={{ minWidth: '100%' }}>
         <div />
-      </Carousel>
+      </Slider>
     </>
   )
 }

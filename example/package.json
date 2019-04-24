@@ -9,6 +9,7 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "eslint-plugin-cypress": "^2.2.1",
     "parcel-bundler": "^1.12.3"
   },
   "alias": {
@@ -19,8 +20,6 @@
   },
   "dependencies": {
     "prop-types": "^15.7.2",
-    "react": "^16.0.0",
-    "react-dat-gui": "^3.0.0",
-    "react-dom": "^16.0.0"
+    "react-dat-gui": "^3.0.0"
   }
 }

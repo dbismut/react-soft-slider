@@ -12,13 +12,13 @@ const Dat = ({ data, onUpdate }) => {
         <DatBoolean path="variableWidth" label="Variable width" />
         <DatBoolean path="variableHeight" label="Variable height" />
       </DatFolder>
-      <DatFolder title="Slides" closed={false}>
+      <DatFolder title="Slides">
         <DatBoolean path="enabled" label="Enabled" />
         <DatNumber path="index" label="Slide index" min={0} max={data.nbSlides - 1} step={1} />
         <DatNumber path="sliderWidth" label="Slider width" min={10} max={100} step={10} />
         <DatButton label={`Add slide (${data.nbSlides})`} onClick={addSlide} />
       </DatFolder>
-      <DatFolder title="Configuration" closed={false}>
+      <DatFolder title="Configuration">
         <DatBoolean path="trail" label="Trail" />
         <DatNumber path="draggedScale" label="Dragged scale" min={0.1} step={0.1} />
         <DatSelect path="draggedSpring" label="Dragged spring" options={Object.keys(draggedSpringOptions)} />
