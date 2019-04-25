@@ -14,6 +14,7 @@ const Dat = ({ data, onUpdate }) => {
       </DatFolder>
       <DatFolder title="Slides">
         <DatBoolean path="enabled" label="Enabled" />
+        <DatBoolean path="autoplay" label="Autoplay" />
         <DatNumber path="index" label="Slide index" min={0} max={data.nbSlides - 1} step={1} />
         <DatNumber path="sliderWidth" label="Slider width" min={10} max={100} step={10} />
         <DatButton label={`Add slide (${data.nbSlides})`} onClick={addSlide} />

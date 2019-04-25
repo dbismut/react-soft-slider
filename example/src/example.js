@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { render } from 'react-dom'
 import { Slider } from 'react-soft-slider'
 import Dat from './dat'
@@ -9,15 +9,39 @@ import './style.css'
 
 function App() {
   const [state, setState] = useState(defaultState)
-  const { enabled, index, nbSlides, trail, draggedScale, sliderWidth, variableHeight, variableWidth, draggedSpring, trailingSpring } = state
+  const timeout = useRef()
+  const {
+    autoplay,
+    enabled,
+    index,
+    nbSlides,
+    trail,
+    draggedScale,
+    sliderWidth,
+    variableHeight,
+    variableWidth,
+    draggedSpring,
+    trailingSpring
+  } = state
 
-  const setIndex = index => setState({ ...state, index })
+  const setIndex = useCallback(index => setState({ ...state, index }), [state])
+
+  const startAutoplay = useCallback(() => {
+    if (autoplay) timeout.current = setInterval(() => setIndex((index + 1) % nbSlides), 5000)
+  }, [autoplay, index, nbSlides, setIndex])
+
+  const stopAutoplay = useCallback(() => void clearTimeout(timeout.current), [])
 
   const handleClick = i => {
     if (i !== state.index) {
       setIndex(i)
     }
   }
+
+  useEffect(() => {
+    startAutoplay()
+    return stopAutoplay
+  }, [startAutoplay, stopAutoplay])
 
   return (
     <>
@@ -30,6 +54,8 @@ function App() {
         slideStyle={variableWidth ? undefined : { minWidth: '100%' }}
         onIndexChange={setIndex}
         trail={trail}
+        onDragStart={stopAutoplay}
+        onDragEnd={startAutoplay}
         draggedScale={draggedScale}
         draggedSpring={draggedSpringOptions[draggedSpring]}
         trailingSpring={trailingSpringOptions[trailingSpring]}
