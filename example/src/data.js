@@ -15,6 +15,7 @@ export const slides = [
 export const defaultState = {
   enabled: true,
   autoplay: false,
+  vertical: false,
   index: 0,
   nbSlides: 4,
   trail: true,

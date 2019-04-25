@@ -14,6 +14,7 @@ function App() {
         slideStyle={(i: number) => ({ width: `${100 * i}%` })}
         enabled={false}
         trail={true}
+        vertical={true}
         draggedScale={0.8}
         draggedSpring={{ mass: 1, tension: 100, friction: 40 }}
         trailingSpring={{ mass: 1, tension: 100, friction: 40 }}

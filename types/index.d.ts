@@ -10,6 +10,7 @@ interface SliderProps {
   readonly slideStyle?: {} | ((index: number) => {})
   readonly enabled?: boolean
   readonly trail?: boolean
+  readonly vertical?: boolean
   readonly draggedScale?: number
   readonly draggedSpring?: {}
   readonly trailingSpring?: {}

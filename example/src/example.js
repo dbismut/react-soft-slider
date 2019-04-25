@@ -13,6 +13,7 @@ function App() {
   const {
     autoplay,
     enabled,
+    vertical,
     index,
     nbSlides,
     trail,
@@ -48,10 +49,11 @@ function App() {
       <Dat data={state} onUpdate={setState} />
       <Slider
         enabled={enabled}
+        vertical={vertical}
         index={index}
         className="wrapper"
         style={{ width: `${sliderWidth}vw` }}
-        slideStyle={variableWidth ? undefined : { minWidth: '100%' }}
+        slideStyle={vertical ? { minHeight: '100%' } : variableWidth ? undefined : { minWidth: '100%' }}
         onIndexChange={setIndex}
         trail={trail}
         onDragStart={stopAutoplay}

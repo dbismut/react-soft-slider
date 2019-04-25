@@ -7,16 +7,17 @@ import useResizeObserver from 'use-resize-observer'
 import 'intersection-observer'
 
 // style for the slides wrapper
-const slides = {
+const slides = vertical => ({
   display: 'flex',
   height: '100%',
   width: '100%',
   flexWrap: 'nowrap',
   alignItems: 'stretch',
-  position: 'relative'
-}
+  position: 'relative',
+  flexDirection: vertical ? 'column' : 'row'
+})
 
-const trans = (x, s) => `translate3d(${x}px,0,0) scale(${s})`
+const trans = axis => (pos, s) => `translate${axis}(${pos}px) scale(${s})`
 
 export function Slider({
   children,
@@ -27,6 +28,7 @@ export function Slider({
   slideStyle,
   enabled,
   trail,
+  vertical,
   draggedScale,
   draggedSpring,
   trailingSpring,
@@ -37,7 +39,10 @@ export function Slider({
   // root holds are slides wrapper node and we use a ResizeObserver
   // to observe its size in order to recompute the slides position
   // when it changes
-  const [root, width] = useResizeObserver()
+  const [root, width, height] = useResizeObserver()
+
+  const axis = vertical ? 'y' : 'x'
+  const size = vertical ? height : width
 
   // indexRef is an internal reference to the current slide index
   const indexRef = useRef(index)
@@ -85,7 +90,7 @@ export function Slider({
     instances.current.push(ctrl)
 
     // zIndex will make sure the dragged slide stays on top of the others
-    return { x: restPos.current, sc: 1, zIndex: 0, immediate: key => key === 'zIndex' }
+    return { x: vertical ? 0 : restPos.current, y: vertical ? restPos.current : 0, sc: 1, zIndex: 0, immediate: key => key === 'zIndex' }
   })
 
   // everytime the index changes, we should calculate the right position
@@ -93,15 +98,20 @@ export function Slider({
   // the index changes
   useEffect(() => {
     // here we take the selected slide
-    const { offsetLeft, offsetWidth } = root.current.children[index]
-    // and calculate its position so its centered in the slides wrapper
-    restPos.current = -offsetLeft + (width - offsetWidth) / 2
-
+    if (vertical) {
+      const { offsetTop, offsetHeight } = root.current.children[index]
+      // and calculate its position so its centered in the slides wrapper
+      restPos.current = -offsetTop + (height - offsetHeight) / 2
+    } else {
+      const { offsetLeft, offsetWidth } = root.current.children[index]
+      // and calculate its position so its centered in the slides wrapper
+      restPos.current = -offsetLeft + (width - offsetWidth) / 2
+    }
     // two options then:
     // 1. the index was changed through gestures: in that case indexRef
     // is equal to index, we just want to set the position where it should
 
-    if (indexRef.current === index) set(() => ({ x: restPos.current, sc: 1, config: trailingSpring }))
+    if (indexRef.current === index) set(() => ({ [axis]: restPos.current, sc: 1, config: trailingSpring }))
     else {
       // 2. the user has changed the index props: in that case indexRef
       // is outdated and different from index. We want to animate depending
@@ -116,7 +126,7 @@ export function Slider({
         const attachIdx = i < firstToMove ? i + 1 : i - 1
         const attachController = instances.current[attachIdx]
         return {
-          x: restPos.current,
+          [axis]: restPos.current,
           sc: 1,
           config: trailingSpring,
           attach: trail && i !== firstToMove && !!attachController && (() => attachController)
@@ -125,12 +135,22 @@ export function Slider({
     }
     // finally we update indexRef to match index
     indexRef.current = index
-  }, [index, set, root, width, trail, trailingSpring])
+  }, [index, set, root, vertical, axis, height, width, trail, trailingSpring])
 
   // adding the bind listener
   const bind = useGesture(
     {
-      onDrag: ({ first, last, vxvy: [vx], delta: [xDelta], args: [pressedIndex], temp = springs[pressedIndex].x.getValue() }) => {
+      onDrag: ({
+        first,
+        last,
+        vxvy: [vx, vy],
+        delta: [xDelta, yDelta],
+        args: [pressedIndex],
+        temp = springs[pressedIndex][axis].getValue()
+      }) => {
+        const v = vertical ? vy : vx
+        const delta = vertical ? yDelta : xDelta
+
         if (first) {
           // if this is the first drag event, we're trailing the controllers
           // to the index being dragged and setting zIndex, scale and config
@@ -138,9 +158,9 @@ export function Slider({
             const attachIdx = i === pressedIndex ? -1 : i < pressedIndex ? i + 1 : i - 1
             const attachController = instances.current[attachIdx]
             return {
-              x: temp + xDelta,
+              [axis]: temp + delta,
               sc: draggedScale,
-              config: key => (key === 'x' && i === pressedIndex ? draggedSpring : trailingSpring),
+              config: key => (key === axis && i === pressedIndex ? draggedSpring : trailingSpring),
               zIndex: i === pressedIndex ? 10 : 0,
               attach: trail && !!attachController && (() => attachController)
             }
@@ -151,8 +171,8 @@ export function Slider({
         } else if (last) {
           // when the user releases the drag and the distance or speed are superior to a threshold
           // we update the indexRef
-          if (Math.abs(xDelta) > width / 2 || Math.abs(vx) > 0.3) {
-            indexRef.current = clamp(indexRef.current + (xDelta > 0 ? -1 : 1), 0, children.length - 1)
+          if (Math.abs(delta) > size / 2 || Math.abs(v) > 0.3) {
+            indexRef.current = clamp(indexRef.current + (delta > 0 ? -1 : 1), 0, children.length - 1)
           }
           // if the index is not equal to indexRef we know we've moved a slide
           // so we tell the user to update its index in the next tick and our useEffect
@@ -161,14 +181,14 @@ export function Slider({
           // TODO - need an example
           if (index !== indexRef.current) requestAnimationFrame(() => onIndexChange(indexRef.current))
           // if the index hasn't changed then we set the position back to where it should be
-          else set(() => ({ x: restPos.current, sc: 1, config: trailingSpring }))
+          else set(() => ({ [axis]: restPos.current, sc: 1, config: trailingSpring }))
 
           // triggering onDragEnd prop if it exists
           onDragEnd && onDragEnd(pressedIndex)
         }
 
         // if not we're just dragging and we're just updating x
-        else set(i => ({ x: temp + xDelta, config: key => (key === 'x' && i === pressedIndex ? draggedSpring : trailingSpring) }))
+        else set(i => ({ [axis]: temp + delta, config: key => (key === axis && i === pressedIndex ? draggedSpring : trailingSpring) }))
 
         // and returning temp to keep the initial position in cache along drag
         return temp
@@ -177,10 +197,12 @@ export function Slider({
     { enabled }
   )
 
+  const fn = vertical ? trans('Y') : trans('X')
+
   return (
     <div className={className} style={style}>
-      <div ref={root} style={slides}>
-        {springs.map(({ x, sc, zIndex }, i) => (
+      <div ref={root} style={slides(vertical)}>
+        {springs.map(({ [axis]: pos, y, sc, zIndex }, i) => (
           <animated.div
             // passing the index as an argument will let our handler know
             // which slide is being dragged
@@ -190,7 +212,7 @@ export function Slider({
             style={{
               ...slideStyleFunc(i),
               zIndex,
-              transform: interpolate([x, sc], trans),
+              transform: interpolate([pos, sc], fn),
               display: 'flex',
               alignItems: 'center',
               willChange: 'transform'
@@ -209,6 +231,7 @@ Slider.defaultProps = {
   style: undefined,
   enabled: true,
   trail: true,
+  vertical: false,
   draggedScale: 1,
   draggedSpring: { tension: 1200, friction: 40 },
   trailingSpring: { mass: 10, tension: 800, friction: 200 },
@@ -224,6 +247,7 @@ Slider.propTypes = {
   style: PropTypes.object,
   slideStyle: PropTypes.object,
   enabled: PropTypes.bool,
+  vertical: PropTypes.bool,
   trail: PropTypes.bool,
   draggedScale: PropTypes.number,
   draggedSpring: PropTypes.object,
