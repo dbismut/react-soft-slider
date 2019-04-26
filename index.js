@@ -98,13 +98,12 @@ export function Slider({
   // the index changes
   useEffect(() => {
     // here we take the selected slide
+    // and calculate its position so its centered in the slides wrapper
     if (vertical) {
       const { offsetTop, offsetHeight } = root.current.children[index]
-      // and calculate its position so its centered in the slides wrapper
       restPos.current = -offsetTop + (height - offsetHeight) / 2
     } else {
       const { offsetLeft, offsetWidth } = root.current.children[index]
-      // and calculate its position so its centered in the slides wrapper
       restPos.current = -offsetLeft + (width - offsetWidth) / 2
     }
     // two options then:

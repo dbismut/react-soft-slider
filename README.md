@@ -69,6 +69,7 @@ The `<Slider />` component accepts the following props:
 | `onIndexChange()` | `(newIndex: number) => void`        | function called by the slider when the slide index should change                                  | Required                                    |
 | `enabled`         | `boolean`                           | enables or disables the slider gestures                                                           | `true`                                      |
 | `trail`           | `boolean`                           | enables or disables trailing of slides (staggered animations)                                     | `true`                                      |
+| `vertical`        | `boolean`                           | enables vertical sliding mode                                                                     | `false`                                     |
 | `draggedScale`    | `Number`                            | scale factor of the slides when dragged                                                           | `1.0`                                       |
 | `draggedSpring`   | `object`                            | spring between the pointer and the dragged slide                                                  | `{ tension: 1200, friction: 40 }`           |
 | `trailingSpring`  | `object`                            | spring of the other slides                                                                        | `{ mass: 10, tension: 800, friction: 200 }` |
@@ -86,7 +87,7 @@ React-soft-slider uses two springs, one for the dragged slide, and one for the o
 
 **Sizing your slides relatively to the slider**
 
-If you want to size your slides relatively to the slider width (let's say `width: 80%`), you'll need to rely on `slideStyle` set to `{{ minWidth: '80%' }}` and styling your slide with `width` set to`100%`.
+If you want to size your slides relatively to the slider width (let's say `width: 80%`), you'll need to rely on `slideStyle` set to `{{ minWidth: '80%' }}` and styling your slide with `width` set to`100%`. The same logic applies for height when in vertical sliding mode.
 
 **Don't use transform styling in slideStyle**
 
@@ -95,10 +96,3 @@ React-soft-slider uses the `transform` attribute to make slides move so transfor
 **React-soft-slider is open to suggestions!**
 
 React-soft-slider will probably never include slider peripheral features, but is open to suggestions to make handling your slides easier!
-
-## Todo
-
-- [ ] Tests
-- [ ] Actually learn and test Typescript definitions
-- [ ] Support vertical sliding
-- [ ] Prevent scroll on mobile when moving the slider ?
