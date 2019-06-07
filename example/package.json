@@ -13,7 +13,7 @@
     "parcel-bundler": "^1.12.3"
   },
   "alias": {
-    "react-soft-slider": "../index",
+    "react-soft-slider": "../src/index",
     "react": "../node_modules/react",
     "react-dom": "../node_modules/react-dom",
     "react-spring": "../node_modules/react-spring"

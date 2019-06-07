@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.2 Release
+
+**Summary:** Deps update.
+
 ## 1.0.1 Release
 
 **Summary:** Added vertical mode.
