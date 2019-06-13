@@ -80,7 +80,7 @@ export function Slider({
   }, [children.length, root])
 
   // removing the observer on unmount
-  useEffect(() => observer.current.disconnect, [])
+  useEffect(() => () => observer.current.disconnect(), [])
 
   // setting the springs with initial position set to restPos:
   // this is important when adding slides since changing children

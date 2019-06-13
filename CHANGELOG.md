@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.3 Release
+
+**Summary:** Fixed unmount bug affecting IntersectionObserver.
+
 # 1.0.2 Release
 
 **Summary:** Deps update.
