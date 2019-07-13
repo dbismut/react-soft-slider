@@ -47,7 +47,7 @@ function App() {
   return (
     <Slider index={index} onIndexChange={setIndex} style={{ width: 400, height: 200 }}>
       {slides.map((color, i) => (
-        <div key="i" style={{ ...style, background: color }} />
+        <div key={i} style={{ ...style, background: color }} />
       ))}
     </Slider>
   )
