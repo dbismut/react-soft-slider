@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.4 Release
+
+**Summary:** Removes lodash dependency for `clamp`.
+
 # 1.0.3 Release
 
 **Summary:** Fixed unmount bug affecting IntersectionObserver.

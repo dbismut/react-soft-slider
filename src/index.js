@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import clamp from 'lodash.clamp'
 import { useSprings, animated, interpolate } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import useResizeObserver from 'use-resize-observer'
@@ -18,6 +17,7 @@ const slides = vertical => ({
 })
 
 const trans = axis => (pos, s) => `translate${axis}(${pos}px) scale(${s})`
+const clamp = (num, clamp, higher) => (higher ? Math.min(Math.max(num, clamp), higher) : Math.min(num, clamp))
 
 export function Slider({
   children,
