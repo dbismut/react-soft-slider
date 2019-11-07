@@ -1,5 +1,5 @@
 import React from 'react'
-import DatGui, { DatBoolean, DatButton, DatNumber, DatFolder, DatSelect } from 'react-dat-gui'
+import DatGui, { DatBoolean, DatButton, DatNumber, DatFolder, DatSelect } from '@tim-soft/react-dat-gui'
 
 import { slides, draggedSpringOptions, trailingSpringOptions } from './data'
 

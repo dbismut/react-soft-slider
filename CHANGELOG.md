@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.0.5 Release
+
+**Summary:** Package updates.
+
 # 1.0.4 Release
 
 **Summary:** Removes lodash dependency for `clamp`.
