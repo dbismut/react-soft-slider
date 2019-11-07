@@ -211,7 +211,6 @@ export function Slider({
               zIndex,
               [axis]: pos,
               scale: s,
-              // transform: to([pos, s], vertical ? trans('Y') : trans('X')),
               display: 'flex',
               alignItems: 'center',
               willChange: 'transform'
