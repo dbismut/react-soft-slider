@@ -1,6 +1,6 @@
 {
   "name": "react-soft-slider",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Simple, fast and impartial slider",
   "main": "web.cjs.js",
   "module": "web.js",
@@ -84,7 +84,7 @@
   "dependencies": {
     "intersection-observer": "^0.7.0",
     "prop-types": "^15.7.2",
-    "react-spring": "^9.0.0-beta.34",
+    "react-spring": "9.0.0-beta.34",
     "react-use-gesture": "^6.0.14",
     "use-resize-observer": "^4.0.0"
   }
