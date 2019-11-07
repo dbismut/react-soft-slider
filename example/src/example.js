@@ -4,7 +4,6 @@ import { Slider } from 'react-soft-slider'
 import Dat from './dat'
 import { defaultState, slides, draggedSpringOptions, trailingSpringOptions } from './data'
 
-import 'react-dat-gui/build/react-dat-gui.css'
 import './style.css'
 
 function App() {
