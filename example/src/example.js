@@ -64,7 +64,7 @@ function App() {
         {slides.slice(0, nbSlides).map((url, i) => (
           <div
             className="slide"
-            key="i"
+            key={i}
             onClick={() => handleClick(i)}
             style={{
               width: variableWidth ? `${400 + (i % 3) * 50}px` : '100%',

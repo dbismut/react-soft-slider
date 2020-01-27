@@ -1,6 +1,14 @@
 # Changelog
 
-# 1.0.5 Release
+# 2.0.0 Release
+
+**Summary:** Move to `react-use-gesture` v7 and `react-spring` v9. Shouldn't break anything but the trailing behavior is slightly different so you might want to keep v1.x.
+
+### Added
+
+1. `trailingDelay` option.
+
+# 1.0.5-7 Releases
 
 **Summary:** Package updates.
 

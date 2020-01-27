@@ -73,6 +73,7 @@ The `<Slider />` component accepts the following props:
 | `draggedScale`    | `Number`                            | scale factor of the slides when dragged                                                           | `1.0`                                       |
 | `draggedSpring`   | `object`                            | spring between the pointer and the dragged slide                                                  | `{ tension: 1200, friction: 40 }`           |
 | `trailingSpring`  | `object`                            | spring of the other slides                                                                        | `{ mass: 10, tension: 800, friction: 200 }` |
+| `trailingDelay`   | `Number`                            | delay of trailing slides (in ms)                                                                  | `50`                                        |
 | `onDragStart()`   | `(pressedIndex: number) => void`    | function called when the drag starts, passing the index of the slide being dragged as an argument |                                             |
 | `onDragEnd()`     | `(pressedIndex: number) => void`    | function called when the drag ends, passing the index of the slide being dragged as an argument   |                                             |
 | `className`       | `string`                            | CSS class passed to the slider wrapper                                                            |                                             |
