@@ -164,7 +164,7 @@ export function Slider({
       delta: [dx, dy],
       movement: [movX, movY],
       args: [pressedIndex],
-      memo = springs[pressedIndex][axis].get()
+      memo = springs[pressedIndex][axis].getValue()
     }) => {
       const v = vertical ? vy : vx
       const dir = -Math.sign(vertical ? dy : dx)
