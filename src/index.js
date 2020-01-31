@@ -81,11 +81,11 @@ export function Slider({
   }
 
   const observer = useRef(null)
-  if (!observer.current) observer.current = new IntersectionObserver(cb)
 
   // we add the slides to the IntersectionObserver:
   // this is recomputed everytime the user adds or removes a slide
   useEffect(() => {
+    if (!observer.current) observer.current = new IntersectionObserver(cb)
     Array.from(root.current.children).forEach(t => observer.current.observe(t))
   }, [children.length, root])
 
