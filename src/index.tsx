@@ -252,7 +252,7 @@ export const Slider = ({
         // we update the indexRef
         if (Math.abs(mov) > size! / 2 || swipe !== 0) {
           indexRef.current = clamp(
-            indexRef.current - swipe,
+            indexRef.current + (mov > 0 ? -1 : 1),
             0,
             children.length - 1
           )

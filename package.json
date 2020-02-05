@@ -1,6 +1,6 @@
 {
   "name": "react-soft-slider",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Simple, fast and impartial slider",
   "main": "dist/index.js",
   "module": "dist/react-soft-slider.esm.js",
