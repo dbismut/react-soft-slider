@@ -1,5 +1,18 @@
 # Changelog
 
+# 2.1.0 Release
+
+**Summary:** This lib is now using `tsdx`.
+
+### Added
+
+1. `releaseSpring` config option.
+2. `slideAlign` option to align slides.
+
+### Changes
+
+1. Removed intersection observer polyfill.
+
 # 2.0.0 Release
 
 **Summary:** Move to `react-use-gesture` v7 and `react-spring` v9. Shouldn't break anything but the trailing behavior is slightly different so you might want to keep v1.x.

@@ -28,6 +28,8 @@ React-soft-slider is powered by [react-spring](https://github.com/react-spring/r
 npm install react-soft-slider
 ```
 
+> ⚠️ You also want to add the [intersection-observer](https://www.npmjs.com/package/intersection-observer) and [resize-observer](resize-observer-polyfill) polyfills for full browser support. Check out adding the [polyfills](#polyfills) for details about how you can include it.
+
 ## Usage
 
 `<Slider />` has a very limited logic, and essentially does two things:
@@ -45,7 +47,11 @@ function App() {
   const [index, setIndex] = React.useState(0)
 
   return (
-    <Slider index={index} onIndexChange={setIndex} style={{ width: 400, height: 200 }}>
+    <Slider
+      index={index}
+      onIndexChange={setIndex}
+      style={{ width: 400, height: 200 }}
+    >
       {slides.map((color, i) => (
         <div key={i} style={{ ...style, background: color }} />
       ))}
@@ -62,23 +68,24 @@ As you can see from the example, any child of the `<Slider />` component is cons
 
 The `<Slider />` component accepts the following props:
 
-| Name              | Type                                | Description                                                                                       | Default Value                               |
-| ----------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| `children`        | `node`                              | elements you should pass to the slider and that will be considered as slides                      | Required                                    |
-| `index`           | `number`                            | the index of the slide that should be shown by the slider                                         | Required                                    |
-| `onIndexChange()` | `(newIndex: number) => void`        | function called by the slider when the slide index should change                                  | Required                                    |
-| `enabled`         | `boolean`                           | enables or disables the slider gestures                                                           | `true`                                      |
-| `trail`           | `boolean`                           | enables or disables trailing of slides (staggered animations)                                     | `true`                                      |
-| `vertical`        | `boolean`                           | enables vertical sliding mode                                                                     | `false`                                     |
-| `draggedScale`    | `Number`                            | scale factor of the slides when dragged                                                           | `1.0`                                       |
-| `draggedSpring`   | `object`                            | spring between the pointer and the dragged slide                                                  | `{ tension: 1200, friction: 40 }`           |
-| `trailingSpring`  | `object`                            | spring of the other slides                                                                        | `{ mass: 10, tension: 800, friction: 200 }` |
-| `trailingDelay`   | `Number`                            | delay of trailing slides (in ms)                                                                  | `50`                                        |
-| `onDragStart()`   | `(pressedIndex: number) => void`    | function called when the drag starts, passing the index of the slide being dragged as an argument |                                             |
-| `onDragEnd()`     | `(pressedIndex: number) => void`    | function called when the drag ends, passing the index of the slide being dragged as an argument   |                                             |
-| `className`       | `string`                            | CSS class passed to the slider wrapper                                                            |                                             |
-| `style`           | `object`                            | style passed to the slider wrapper                                                                |                                             |
-| `slideStyle`      | `object` or `(i: number) => object` | style passed to the slides                                                                        |                                             |
+| Name              | Type                                | Description                                                                                       | Default Value                     |
+| ----------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `children`        | `node`                              | elements you should pass to the slider and that will be considered as slides                      | Required                          |
+| `index`           | `number`                            | the index of the slide that should be shown by the slider                                         | Required                          |
+| `onIndexChange()` | `(newIndex: number) => void`        | function called by the slider when the slide index should change                                  | Required                          |
+| `enabled`         | `boolean`                           | enables or disables the slider gestures                                                           | `true`                            |
+| `vertical`        | `boolean`                           | enables vertical sliding mode                                                                     | `false`                           |
+| `draggedScale`    | `Number`                            | scale factor of the slides when dragged                                                           | `1.0`                             |
+| `draggedSpring`   | `object`                            | spring between the pointer and the dragged slide                                                  | `{ tension: 1200, friction: 40 }` |
+| `trailingSpring`  | `object`                            | spring of the other slides                                                                        | `{ tension: 120, friction: 30 }`  |
+| `releaseSpring`   | `object`                            | spring used when the slides rest (user releases the pointer)                                      | `{ tension: 120, friction: 30 }`  |
+| `trailingDelay`   | `Number`                            | delay of trailing slides (in ms)                                                                  | `50`                              |
+| `onDragStart()`   | `(pressedIndex: number) => void`    | function called when the drag starts, passing the index of the slide being dragged as an argument |                                   |
+| `onDragEnd()`     | `(pressedIndex: number) => void`    | function called when the drag ends, passing the index of the slide being dragged as an argument   |                                   |
+| `className`       | `string`                            | CSS class passed to the slider wrapper                                                            |                                   |
+| `style`           | `object`                            | style passed to the slider wrapper                                                                |                                   |
+| `slideStyle`      | `object` or `(i: number) => object` | style passed to the slides                                                                        |                                   |
+| `slideAlign`      | `string (align-items prop)`         | slide alignment (`'center'`, `'flex-start'`, `'flex-end'`)                                        | `'center'`                        |
 
 ### Springs configuration
 
@@ -97,3 +104,41 @@ React-soft-slider uses the `transform` attribute to make slides move so transfor
 **React-soft-slider is open to suggestions!**
 
 React-soft-slider will probably never include slider peripheral features, but is open to suggestions to make handling your slides easier!
+
+### Polyfills
+
+You can import the
+[IntersectionObserver polyfill](https://www.npmjs.com/package/intersection-observer) and [ResizeObserver polyfill](https://www.npmjs.com/package/resize-observer-polyfill) directly or use
+a service like [polyfill.io](https://polyfill.io/v2/docs/) to add it when
+needed.
+
+```sh
+yarn add intersection-observer resize-observer-polyfill
+```
+
+Then import it in your app:
+
+```js
+import 'intersection-observer'
+import 'resize-observer-polyfill'
+
+```
+
+If you are using Webpack (or similar) you could use
+[dynamic imports](https://webpack.js.org/api/module-methods/#import-), to load
+the Polyfill only if needed. A basic implementation could look something like
+this:
+
+```js
+/**
+ * Do feature detection, to figure out which polyfills needs to be imported.
+ **/
+async function loadPolyfills() {
+  if (typeof window.IntersectionObserver === 'undefined') {
+    await import('intersection-observer')
+  }
+    if (typeof window.ResizeObserver === 'undefined') {
+    await import('resize-observer-polyfill')
+  }
+}
+```

@@ -18,21 +18,15 @@ export const defaultState = {
   vertical: false,
   index: 0,
   nbSlides: 4,
-  trail: true,
   draggedScale: 0.8,
+  trailingDelay: 50,
   sliderWidth: 80,
   variableWidth: false,
   variableHeight: false,
+  slideAlign: 'center',
   draggedSpring: 'default',
-  trailingSpring: 'default'
+  trailingSpring: 'slow',
+  releaseSpring: 'slow'
 }
 
-export const draggedSpringOptions = {
-  ...config,
-  default: undefined
-}
-
-export const trailingSpringOptions = {
-  ...config,
-  default: undefined
-}
+export const springOptions = { ...config, default: undefined }

@@ -1,33 +1,40 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { render } from 'react-dom'
+import { config } from 'react-spring'
 import { Slider } from 'react-soft-slider'
 import Dat from './dat'
-import { defaultState, slides, draggedSpringOptions, trailingSpringOptions } from './data'
+import { defaultState, slides } from './data'
 
 import './style.css'
 
 function App() {
   const [state, setState] = useState(defaultState)
-  const timeout = useRef()
+  const timeout = useRef(0)
   const {
     autoplay,
     enabled,
     vertical,
     index,
     nbSlides,
-    trail,
+    trailingDelay,
     draggedScale,
     sliderWidth,
+    slideAlign,
     variableHeight,
     variableWidth,
     draggedSpring,
-    trailingSpring
+    trailingSpring,
+    releaseSpring
   } = state
 
   const setIndex = useCallback(index => setState({ ...state, index }), [state])
 
   const startAutoplay = useCallback(() => {
-    if (autoplay) timeout.current = setInterval(() => setIndex((index + 1) % nbSlides), 5000)
+    if (autoplay)
+      timeout.current = window.setInterval(
+        () => setIndex((index + 1) % nbSlides),
+        5000
+      )
   }, [autoplay, index, nbSlides, setIndex])
 
   const stopAutoplay = useCallback(() => void clearTimeout(timeout.current), [])
@@ -52,14 +59,22 @@ function App() {
         index={index}
         className="wrapper"
         style={{ width: `${sliderWidth}vw` }}
-        slideStyle={vertical ? { minHeight: '100%' } : variableWidth ? undefined : { minWidth: '100%' }}
+        slideStyle={
+          vertical
+            ? { minHeight: '100%' }
+            : variableWidth
+            ? undefined
+            : { minWidth: '100%' }
+        }
+        slideAlign={slideAlign}
         onIndexChange={setIndex}
-        trail={trail}
+        trailingDelay={trailingDelay}
         onDragStart={stopAutoplay}
         onDragEnd={startAutoplay}
         draggedScale={draggedScale}
-        draggedSpring={draggedSpringOptions[draggedSpring]}
-        trailingSpring={trailingSpringOptions[trailingSpring]}
+        draggedSpring={config[draggedSpring]}
+        trailingSpring={config[trailingSpring]}
+        releaseSpring={config[releaseSpring]}
       >
         {slides.slice(0, nbSlides).map((url, i) => (
           <div
