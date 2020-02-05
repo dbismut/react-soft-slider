@@ -1,6 +1,6 @@
 # Changelog
 
-# 2.1.0 Release
+# 2.1.1 Release
 
 **Summary:** This lib is now using `tsdx`.
 
