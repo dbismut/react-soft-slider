@@ -1,5 +1,14 @@
 # Changelog
 
+# 2.1.2 Release
+
+**Summary:** Added `indexRange` and `rootStyle` options
+
+### Added
+
+1. `indexRange: [number, number]` config option to artificially limit the index ranges.
+2. `rootStyle` option styles the inner root `<div/>`.
+
 # 2.1.1 Release
 
 **Summary:** This lib is now using `tsdx`.
