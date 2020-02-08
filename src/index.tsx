@@ -116,10 +116,8 @@ export const Slider = ({
     Array.from(root.current!.children).forEach(t =>
       observer.current!.observe(t)
     )
+    return () => observer.current!.disconnect()
   }, [children.length, root])
-
-  // removing the observer on unmount
-  useEffect(() => () => observer.current!.disconnect(), [])
 
   // setting the springs with initial position set to restPos:
   // this is important when adding slides since changing children
