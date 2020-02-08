@@ -19,7 +19,7 @@ export const defaultState = {
   index: 0,
   nbSlides: 4,
   draggedScale: 0.8,
-  trailingDelay: 50,
+  trailingDelay: 0,
   sliderWidth: 80,
   variableWidth: false,
   variableHeight: false,
@@ -29,4 +29,4 @@ export const defaultState = {
   releaseSpring: 'slow'
 }
 
-export const springOptions = { ...config, default: undefined }
+export const springOptions = Object.keys(config)

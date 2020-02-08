@@ -11,7 +11,8 @@
   "dependencies": {
     "react-app-polyfill": "^1.0.0",
     "react-soft-slider": "^2.1.0",
-    "@tim-soft/react-dat-gui": "^4.0.11"
+    "@tim-soft/react-dat-gui": "^4.0.11",
+    "resize-observer-polyfill": "1.5.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.11",

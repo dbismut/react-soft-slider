@@ -1,10 +1,15 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react'
 import { render } from 'react-dom'
 import { Slider } from 'react-soft-slider'
+import { config } from 'react-spring'
+import ResizeObserver from 'resize-observer-polyfill'
 import Dat from './dat'
-import { defaultState, slides, springOptions } from './data'
+import { defaultState, slides } from './data'
 
 import './style.css'
+
+// @ts-ignore
+window.ResizeObserver = window.ResizeObserver || ResizeObserver
 
 function App() {
   const [state, setState] = useState(defaultState)
@@ -71,9 +76,9 @@ function App() {
         onDragStart={stopAutoplay}
         onDragEnd={startAutoplay}
         draggedScale={draggedScale}
-        draggedSpring={springOptions[draggedSpring]}
-        trailingSpring={springOptions[trailingSpring]}
-        releaseSpring={springOptions[releaseSpring]}
+        draggedSpring={config[draggedSpring]}
+        trailingSpring={config[trailingSpring]}
+        releaseSpring={config[releaseSpring]}
       >
         {slides.slice(0, nbSlides).map((url, i) => (
           <div
