@@ -8,7 +8,7 @@ type SliderProps = {
   index: number
   onIndexChange: (newIndex: number) => void
   className?: string
-  style?: {}
+  style?: React.CSSProperties
   slideStyle?: React.CSSProperties | ((index: number) => React.CSSProperties)
   onDragStart?: (pressedIndex: number) => void
   onDragEnd?: (pressedIndex: number) => void
