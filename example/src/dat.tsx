@@ -61,17 +61,17 @@ const Dat = ({ data, onUpdate }) => {
         <DatSelect
           path="draggedSpring"
           label="Dragged spring"
-          options={springOptions}
+          options={Object.keys(springOptions)}
         />
         <DatSelect
           path="trailingSpring"
           label="Trailing spring"
-          options={springOptions}
+          options={Object.keys(springOptions)}
         />
         <DatSelect
           path="releaseSpring"
           label="Release spring"
-          options={springOptions}
+          options={Object.keys(springOptions)}
         />
       </DatFolder>
     </DatGui>
