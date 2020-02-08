@@ -11,6 +11,7 @@ type SliderProps = {
   style?: React.CSSProperties
   rootStyle?: React.CSSProperties
   slideStyle?: React.CSSProperties | ((index: number) => React.CSSProperties)
+  indexRange?: [number, number]
   onDragStart?: (pressedIndex: number) => void
   onDragEnd?: (pressedIndex: number) => void
   onTap?: (pressedIndex: number) => void
@@ -55,6 +56,7 @@ export const Slider = ({
   slideStyle,
   enabled,
   vertical,
+  indexRange,
   slideAlign,
   draggedScale,
   draggedSpring,
@@ -75,6 +77,9 @@ export const Slider = ({
 
   const axis = vertical ? 'y' : 'x'
   const size = vertical ? height : width
+
+  let [minIndex, maxIndex] = indexRange || [0, children.length - 1]
+  maxIndex = maxIndex > 0 ? maxIndex : children.length - 1 + maxIndex
 
   // indexRef is an internal reference to the current slide index
   const indexRef = useRef(index)
@@ -253,8 +258,8 @@ export const Slider = ({
         if (Math.abs(mov) > size! / 2 || swipe !== 0) {
           indexRef.current = clamp(
             indexRef.current + (mov > 0 ? -1 : 1),
-            0,
-            children.length - 1
+            minIndex,
+            maxIndex
           )
         }
         // if the index is not equal to indexRef we know we've moved a slide
