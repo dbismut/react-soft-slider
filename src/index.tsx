@@ -9,6 +9,7 @@ type SliderProps = {
   onIndexChange: (newIndex: number) => void
   className?: string
   style?: React.CSSProperties
+  rootStyle?: React.CSSProperties
   slideStyle?: React.CSSProperties | ((index: number) => React.CSSProperties)
   onDragStart?: (pressedIndex: number) => void
   onDragEnd?: (pressedIndex: number) => void
@@ -50,6 +51,7 @@ export const Slider = ({
   onIndexChange,
   className,
   style,
+  rootStyle,
   slideStyle,
   enabled,
   vertical,
@@ -304,7 +306,7 @@ export const Slider = ({
 
   return (
     <div className={className} style={style}>
-      <div ref={root} style={slidesWrapperStyle(vertical)}>
+      <div ref={root} style={{ ...slidesWrapperStyle(vertical), ...rootStyle }}>
         {springs.map(({ [axis]: pos, s, zIndex }, i) => (
           <animated.div
             // passing the index as an argument will let our handler know
