@@ -31,7 +31,6 @@ const defaultProps = {
 // style for the slides wrapper
 const slidesWrapperStyle = (vertical: boolean): React.CSSProperties => ({
   display: 'flex',
-  width: '100%',
   flexWrap: 'nowrap',
   alignItems: 'stretch',
   position: 'relative',
@@ -308,12 +307,13 @@ export const Slider = ({
     { enabled, axis, filterTaps: true }
   )
 
+  const rootStyle = slidesWrapperStyle(vertical)
+  if (!className) rootStyle.width = '100%'
+
+  console.log(rootStyle)
+
   return (
-    <div
-      ref={root}
-      className={className}
-      style={{ ...slidesWrapperStyle(vertical), ...style }}
-    >
+    <div ref={root} className={className} style={{ ...rootStyle, ...style }}>
       {springs.map(({ [axis]: pos, s, zIndex }, i) => (
         <animated.div
           // passing the index as an argument will let our handler know
