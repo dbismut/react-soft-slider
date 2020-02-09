@@ -1,8 +1,25 @@
 # Changelog
 
+# 2.2.0 Release
+
+**Summary:** Removes outer div, adds className as styling options.
+
+### Changes
+
+1. Removed outer div.
+2. Remove `rootStyle` option.
+
+### Added
+
+1. Add `styleClassName` prop to style slides.
+
+### Fixes
+
+1. `slideAlign` behaviour in vertical mode should work properly.
+
 # 2.1.2 Release
 
-**Summary:** Added `indexRange` and `rootStyle` options
+**Summary:** Added `indexRange` and `rootStyle` options.
 
 ### Added
 
