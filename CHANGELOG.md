@@ -1,6 +1,6 @@
 # Changelog
 
-# 2.2.1 Release
+# 2.2.2 Release
 
 **Summary:** Minor style adjustments.
 
