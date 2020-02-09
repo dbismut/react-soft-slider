@@ -9,7 +9,7 @@ type SliderProps = {
   onIndexChange: (newIndex: number) => void
   className?: string
   style?: React.CSSProperties
-  rootStyle?: React.CSSProperties
+  slideClassName?: string
   slideStyle?: React.CSSProperties | ((index: number) => React.CSSProperties)
   indexRange?: [number, number]
   onDragStart?: (pressedIndex: number) => void
@@ -31,7 +31,6 @@ const defaultProps = {
 // style for the slides wrapper
 const slidesWrapperStyle = (vertical: boolean): React.CSSProperties => ({
   display: 'flex',
-  height: '100%',
   width: '100%',
   flexWrap: 'nowrap',
   alignItems: 'stretch',
@@ -52,8 +51,8 @@ export const Slider = ({
   onIndexChange,
   className,
   style,
-  rootStyle,
   slideStyle,
+  slideClassName,
   enabled,
   vertical,
   indexRange,
@@ -310,29 +309,32 @@ export const Slider = ({
   )
 
   return (
-    <div className={className} style={style}>
-      <div ref={root} style={{ ...slidesWrapperStyle(vertical), ...rootStyle }}>
-        {springs.map(({ [axis]: pos, s, zIndex }, i) => (
-          <animated.div
-            // passing the index as an argument will let our handler know
-            // which slide is being dragged
-            {...bind(i)}
-            key={i}
-            data-index={i}
-            style={{
-              alignItems: slideAlign,
-              ...slideStyleFunc(i),
-              zIndex,
-              [axis]: pos,
-              scale: s,
-              display: 'flex',
-              willChange: 'transform'
-            }}
-          >
-            {children[i]}
-          </animated.div>
-        ))}
-      </div>
+    <div
+      ref={root}
+      className={className}
+      style={{ ...slidesWrapperStyle(vertical), ...style }}
+    >
+      {springs.map(({ [axis]: pos, s, zIndex }, i) => (
+        <animated.div
+          // passing the index as an argument will let our handler know
+          // which slide is being dragged
+          {...bind(i)}
+          key={i}
+          data-index={i}
+          className={slideClassName}
+          style={{
+            [vertical ? 'justifyContent' : 'alignItems']: slideAlign,
+            display: 'flex',
+            ...slideStyleFunc(i),
+            zIndex,
+            [axis]: pos,
+            scale: s,
+            willChange: 'transform'
+          }}
+        >
+          {children[i]}
+        </animated.div>
+      ))}
     </div>
   )
 }
