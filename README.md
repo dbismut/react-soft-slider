@@ -95,9 +95,13 @@ React-soft-slider uses two springs, one for the dragged slide, and one for the o
 
 ## Gotchas
 
+**Sizing the slider**
+
+The slider wrapper has a default width set to `100%`, so that it fills its container by default. You can override this behaviour by passing your own `style` or `className` props.
+
 **Sizing your slides relatively to the slider**
 
-If you want to size your slides relatively to the slider width (let's say `width: 80%`), you'll need to rely on `slideStyle` set to `{{ minWidth: '80%' }}` and styling your slide with `width` set to`100%`. The same logic applies for height when in vertical sliding mode.
+If you want to size your slides relatively to the slider width (let's say `width: 80%`), you'll need to rely on `slideStyle` set to `{{ minWidth: '80%' }}` and styling your slide with `width` set to `100%`. The same logic applies for height when in vertical sliding mode.
 
 **Don't use transform styling in slideStyle**
 

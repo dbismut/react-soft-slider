@@ -1,5 +1,13 @@
 # Changelog
 
+# 2.2.1 Release
+
+**Summary:** Minor style adjustments.
+
+### Changes
+
+1. Only add `style.width: '100%'` when no `className` prop is provided.
+
 # 2.2.0 Release
 
 **Summary:** Removes outer div, adds className as styling options.
