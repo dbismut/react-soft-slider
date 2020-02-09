@@ -310,8 +310,6 @@ export const Slider = ({
   const rootStyle = slidesWrapperStyle(vertical)
   if (!className) rootStyle.width = '100%'
 
-  console.log(rootStyle)
-
   return (
     <div ref={root} className={className} style={{ ...rootStyle, ...style }}>
       {springs.map(({ [axis]: pos, s, zIndex }, i) => (
