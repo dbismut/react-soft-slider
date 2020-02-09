@@ -64,7 +64,9 @@ function App() {
         style={{ width: `${sliderWidth}vw` }}
         slideStyle={
           vertical
-            ? { minHeight: '100%' }
+            ? variableHeight
+              ? undefined
+              : { minHeight: '100%' }
             : variableWidth
             ? undefined
             : { minWidth: '100%' }
@@ -85,9 +87,21 @@ function App() {
             key={i}
             onClick={() => handleClick(i)}
             style={{
-              width: variableWidth ? `${400 + (i % 3) * 50}px` : '100%',
-              margin: variableWidth ? `0 ${10 + (i % 5) * 5}px` : '0 10px',
-              height: variableHeight ? `${50 + (i % 2) * 10}%` : '80%',
+              width: variableWidth ? `${400 + (i % 3) * 100}px` : '100%',
+              margin: `${
+                variableHeight && vertical
+                  ? 10 + (i % 5) * 5
+                  : vertical
+                  ? 10
+                  : 0
+              }px ${
+                variableWidth && !vertical
+                  ? 10 + (i % 5) * 5
+                  : vertical
+                  ? 0
+                  : 10
+              }px`,
+              height: variableHeight ? `${300 + (i % 2) * 200}px` : '80%',
               backgroundImage: `url(${url})`
             }}
           />
