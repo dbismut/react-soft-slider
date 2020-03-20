@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { useSprings, animated, SpringConfig } from 'react-spring'
 import { useDrag } from 'react-use-gesture'
-import useResizeObserver from 'use-resize-observer'
+import useResizeObserver from 'use-resize-observer/polyfilled'
 
 type SliderProps = {
   children: React.ReactNode[]
@@ -199,17 +199,17 @@ export const Slider = ({
     // finally we update indexRef to match index
     indexRef.current = index
   }, [
-    index,
-    set,
-    root,
-    vertical,
-    axis,
-    height,
-    width,
-    releaseSpring,
-    draggedSpring,
-    trailingDelay
-  ])
+      index,
+      set,
+      root,
+      vertical,
+      axis,
+      height,
+      width,
+      releaseSpring,
+      draggedSpring,
+      trailingDelay
+    ])
 
   // adding the bind listener
   const bind = useDrag(
